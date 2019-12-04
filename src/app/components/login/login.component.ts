@@ -53,13 +53,16 @@ export class LoginComponent implements OnInit {
     
   }*/
   login(email,pwd){
-    this.userServ.tryLogin(email.value,pwd.value).subscribe(result=>{this.user=result},
+    this.userServ.tryLogin(email.value,pwd.value).subscribe(result=>{this.user=JSON.stringify(result)},
       e => {},
       () => {
         if(this.userServ.tryLogin(email.value,pwd.value)!=null){
           console.log('valide');
           console.log(this.user.email)
-          localStorage.setItem('user',this.user.email);
+          localStorage.setItem('user',this.user);
+          let test = localStorage.getItem("user");
+          console.log(JSON.parse(test));
+          
           location.replace('');
         }
         else if(this.user===null) {
